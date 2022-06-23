@@ -2,6 +2,8 @@
 
 namespace HipexDeployConfiguration;
 
+use HipexDeployConfiguration\PlatformService\RedisService;
+
 \Deployer\set('bin/composer', '/usr/local/bin/composer2');
 \Deployer\set('default_timeout', 3600);
 \Deployer\set('keep_releases', 1);
@@ -35,5 +37,11 @@ $configuration->setSharedFolders([
     'pub/sitemaps',
     'pub/static/_cache'
 ]);
+
+$redisSession = new RedisService('session');
+$redisSession->setMaxMemory('1024M');
+$redisSession->setSnapshotSaveFrequency(60);
+$redisSession->setStage($stagingStage);
+$configuration->addPlatformService($redisSession);
 
 return $configuration;
