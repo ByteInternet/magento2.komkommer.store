@@ -20,7 +20,7 @@ jobs:
         env:
           COMPOSER_CACHE_DIR: /tmp/composer-cache
       - name: archive production artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: deployment-build
           path: build/build.tgz
